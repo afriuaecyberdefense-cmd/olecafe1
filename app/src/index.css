@@ -1,0 +1,282 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 30 33% 97%;
+    --foreground: 20 40% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 40% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 40% 12%;
+    --primary: 345 43% 29%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 36 38% 61%;
+    --secondary-foreground: 345 43% 20%;
+    --muted: 30 20% 94%;
+    --muted-foreground: 25 12% 37%;
+    --accent: 36 38% 61%;
+    --accent-foreground: 345 43% 20%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 28 24% 87%;
+    --input: 28 24% 87%;
+    --ring: 345 43% 29%;
+    --radius: 0.75rem;
+
+    /* Ole Cafe Custom Colors */
+    --burgundy: #6B2737;
+    --burgundy-light: #8B3A4F;
+    --burgundy-dark: #4A1B27;
+    --champagne: #C9A96E;
+    --champagne-light: #E8D5A3;
+    --cream: #FAF6F1;
+    --border-color: #E8DDD4;
+    --text-primary: #2C1810;
+    --text-secondary: #6B5B4F;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-[#FAF6F1] text-[#2C1810];
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  * {
+    @apply border-[#E8DDD4];
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #FAF6F1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #C9A96E;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #8B3A4F;
+  }
+}
+
+@layer components {
+  .font-brand {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .text-burgundy {
+    color: #6B2737;
+  }
+
+  .text-burgundy-light {
+    color: #8B3A4F;
+  }
+
+  .text-burgundy-dark {
+    color: #4A1B27;
+  }
+
+  .text-champagne {
+    color: #C9A96E;
+  }
+
+  .text-champagne-light {
+    color: #E8D5A3;
+  }
+
+  .text-cream {
+    color: #FAF6F1;
+  }
+
+  .text-secondary-custom {
+    color: #6B5B4F;
+  }
+
+  .bg-burgundy {
+    background-color: #6B2737;
+  }
+
+  .bg-burgundy-light {
+    background-color: #8B3A4F;
+  }
+
+  .bg-burgundy-dark {
+    background-color: #4A1B27;
+  }
+
+  .bg-champagne {
+    background-color: #C9A96E;
+  }
+
+  .bg-champagne-light {
+    background-color: #E8D5A3;
+  }
+
+  .bg-cream {
+    background-color: #FAF6F1;
+  }
+
+  .border-custom {
+    border-color: #E8DDD4;
+  }
+
+  .card-shadow {
+    box-shadow: 0 2px 12px rgba(107, 39, 55, 0.08);
+  }
+
+  .card-shadow-hover {
+    box-shadow: 0 8px 24px rgba(107, 39, 55, 0.15);
+  }
+
+  /* Hide scrollbar for category tabs */
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@layer utilities {
+  /* Floating animation for decorative elements */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @keyframes float-slow {
+    0%, 100% {
+      transform: translateY(0px) translateX(0px);
+    }
+    50% {
+      transform: translateY(-15px) translateX(10px);
+    }
+  }
+
+  @keyframes bounce-gentle {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(8px);
+    }
+  }
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in-scale {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes slide-in-left {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slide-in-right {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes pulse-logo {
+    0% {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .animate-float {
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .animate-float-slow {
+    animation: float-slow 10s ease-in-out infinite;
+  }
+
+  .animate-bounce-gentle {
+    animation: bounce-gentle 1.5s ease-in-out infinite;
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.5s ease-out forwards;
+  }
+
+  .animate-fade-in-scale {
+    animation: fade-in-scale 0.6s ease-out forwards;
+  }
+
+  .animate-slide-in-left {
+    animation: slide-in-left 0.5s ease-out forwards;
+  }
+
+  .animate-slide-in-right {
+    animation: slide-in-right 0.5s ease-out forwards;
+  }
+
+  .animate-pulse-logo {
+    animation: pulse-logo 0.6s ease-out forwards;
+  }
+
+  /* Animation delays */
+  .delay-100 { animation-delay: 0.1s; }
+  .delay-200 { animation-delay: 0.2s; }
+  .delay-300 { animation-delay: 0.3s; }
+  .delay-400 { animation-delay: 0.4s; }
+  .delay-500 { animation-delay: 0.5s; }
+  .delay-600 { animation-delay: 0.6s; }
+  .delay-700 { animation-delay: 0.7s; }
+  .delay-800 { animation-delay: 0.8s; }
+}
