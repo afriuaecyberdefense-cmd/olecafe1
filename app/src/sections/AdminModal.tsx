@@ -41,6 +41,25 @@ export default function AdminModal({
   const [imagePreview, setImagePreview] = useState<string>('');
   const [success, setSuccess] = useState('');
 
+  const handleImageUpload = useCallback((file: File | null) => {
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      setError('Please upload an image file');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = typeof reader.result === 'string' ? reader.result : '';
+      setImagePreview(result);
+      setFormData((prev) => ({ ...prev, imageUrl: result }));
+    };
+    reader.onerror = () => {
+      setError('Failed to read image');
+    };
+    reader.readAsDataURL(file);
+  }, []);
+
   const handleLogin = useCallback(() => {
     setError('');
     if (!password.trim()) {
@@ -326,22 +345,18 @@ export default function AdminModal({
                       type="file"
                       accept="image/*"
                       onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        if (!file) return;
-
+                        const file = e.target.files?.[0] || null;
+                        if (!file) {
+                          setImagePreview('');
+                          setFormData((prev) => ({ ...prev, imageUrl: '' as string }));
+                          return;
+                        }
                         if (file.size > 2 * 1024 * 1024) {
                           setError('Image must be smaller than 2MB');
                           return;
                         }
-
-                        const reader = new FileReader();
-                        reader.onload = () => {
-                          const result = String(reader.result || '');
-                          setImagePreview(result);
-                          setFormData((prev) => ({ ...prev, imageUrl: result }));
-                          setError('');
-                        };
-                        reader.readAsDataURL(file);
+                        handleImageUpload(file);
+                        setError('');
                       }}
                       className="w-full h-12 px-4 rounded-xl border border-custom bg-cream/50 text-text-primary text-sm focus:outline-none focus:border-burgundy focus:ring-2 focus:ring-burgundy/10 transition-all file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-burgundy/10 file:text-burgundy"
                     />

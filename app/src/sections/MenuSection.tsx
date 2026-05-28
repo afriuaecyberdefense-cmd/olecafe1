@@ -81,10 +81,10 @@ export default function MenuSection({ items }: MenuSectionProps) {
           }`}
         >
           <h2 className="font-brand text-burgundy text-3xl md:text-4xl font-semibold mb-3">
-            Our Menu
+            Explore Menu
           </h2>
           <p className="text-text-secondary text-sm md:text-base mb-4">
-            Crafted with passion, served with love
+            Tap a category to find your favorites
           </p>
           <div className="w-10 h-0.5 bg-champagne mx-auto rounded-full" />
         </div>

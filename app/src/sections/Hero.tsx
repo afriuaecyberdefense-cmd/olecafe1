@@ -30,8 +30,12 @@ export default function Hero() {
     window.open('https://instagram.com/olecafe.ae', '_blank');
   };
 
+  const handleTiktok = () => {
+    window.open('https://www.tiktok.com/@olecafe.ae', '_blank');
+  };
+
   const handleSnapchat = () => {
-    window.open('https://snapchat.com/add/olecafe.ae', '_blank');
+    // removed (replaced by TikTok)
   };
 
   return (
@@ -60,20 +64,12 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Brand Name */}
-        <h1
-          className="animate-on-scroll opacity-0 translate-y-4 transition-all duration-700 ease-out font-brand text-burgundy text-4xl md:text-5xl font-bold italic mb-3"
-          style={{ transitionDelay: '0.25s' }}
-        >
-          Olé Cafe
-        </h1>
-
         {/* Tagline */}
         <p
           className="animate-on-scroll opacity-0 translate-y-4 transition-all duration-700 ease-out text-text-secondary text-base md:text-lg mb-8"
           style={{ transitionDelay: '0.4s' }}
         >
-          Premium Coffee & More
+          Premium Coffee & More. Fresh, fast, and made for you.
         </p>
 
         {/* Instagram QR Code */}
@@ -110,12 +106,13 @@ export default function Hero() {
             <Instagram className="w-5 h-5" />
           </button>
           <button
-            onClick={handleSnapchat}
+            onClick={handleTiktok}
             className="w-12 h-12 rounded-full bg-burgundy flex items-center justify-center text-white transition-all duration-300 hover:bg-champagne hover:scale-110 active:scale-95"
-            aria-label="Snapchat"
+            aria-label="TikTok"
           >
-            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12.206 1c.577 0 2.553.333 3.984 2.583.688 1.01 1.052 2.538.811 4.349a.484.484 0 0 0 .447.544c1.877.162 3.338.416 4.043.76.483.241.672.77.484 1.398-.273.901-1.462 1.317-2.31 1.482a.476.476 0 0 0-.36.615c.025.064.058.125.098.183.654.937 1.637 2.353 1.337 3.266-.2.604-.937.908-2.186.908a.48.48 0 0 0-.389.743c.298.428.37 1.04.043 1.456-.384.493-1.09.593-1.86.702-.13.019-.26.037-.388.061-.33.06-.648.295-.8.96-.197.854-.907 1.158-1.896 1.158-.39 0-.714-.088-1.006-.169-.246-.068-.479-.132-.73-.132-.264 0-.531.068-.814.14-.318.08-.664.167-1.065.167-.99 0-1.7-.304-1.896-1.157-.152-.666-.47-.901-.8-.96a8.563 8.563 0 0 1-.388-.061c-.77-.11-1.476-.21-1.86-.702-.327-.416-.255-1.028.043-1.456a.48.48 0 0 0-.389-.743c-1.25 0-1.986-.304-2.186-.908-.3-.913.683-2.33 1.337-3.266.04-.058.073-.119.098-.183a.476.476 0 0 0-.36-.615c-.848-.165-2.037-.581-2.31-1.482-.188-.628.001-1.157.484-1.398.705-.344 2.166-.598 4.043-.76a.484.484 0 0 0 .447-.544c-.241-1.811.123-3.339.811-4.349C9.24 1.333 11.216 1 11.793 1h.206-.206z"/>
+            {/* Simple TikTok-like note */}
+            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M16.2 7.3c.9.7 1.9 1 3.1 1V5.6c-1.2 0-2.3-.3-3.2-.9-.9-.6-1.5-1.4-1.8-2.4h-2.1v13.3c0 1-.8 1.8-1.8 1.8S9 16.6 9 15.6s.8-1.8 1.8-1.8c.3 0 .6.1.9.2V11.7c-.3-.1-.6-.1-.9-.1-2.6 0-4.7 2.1-4.7 4.7s2.1 4.7 4.7 4.7 4.7-2.1 4.7-4.7V7.3h2.1z" />
             </svg>
           </button>
         </div>
