@@ -55,7 +55,7 @@ export default function Hero() {
         >
           <div className="w-28 h-28 md:w-32 md:h-32 rounded-full bg-burgundy flex items-center justify-center shadow-lg animate-pulse-logo overflow-hidden">
             <img
-              src="/imgaes/olecafe logo.jpeg"
+              src="/imgaes/olecafe%20logo.jpeg"
               alt="Ole Cafe logo"
               loading="eager"
               decoding="async"

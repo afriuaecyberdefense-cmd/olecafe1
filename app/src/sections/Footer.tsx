@@ -20,7 +20,7 @@ export default function Footer() {
         {/* Brand */}
         <div className="flex items-center justify-center gap-2 mb-1">
           <img
-            src="/imgaes/olecafe logo.jpeg"
+            src="/imgaes/olecafe%20logo.jpeg"
             alt="Ole Cafe logo"
             loading="eager"
             decoding="async"
