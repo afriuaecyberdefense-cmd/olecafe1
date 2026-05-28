@@ -109,48 +109,28 @@ export const CATEGORY_CONFIG: { id: Category; label: string }[] = [
   { id: 'extra', label: 'Extra' },
 ];
 
-const STORAGE_KEY = 'olecafe_menu_items';
-const STORAGE_VERSION_KEY = 'olecafe_menu_version';
-const MENU_VERSION = '2026-05-24-v3';
+
 
 export function loadMenuItems(): MenuItem[] {
-  try {
-    const storedVersion = localStorage.getItem(STORAGE_VERSION_KEY);
-    if (storedVersion !== MENU_VERSION) {
-      saveMenuItems(DEFAULT_MENU_ITEMS);
-      localStorage.setItem(STORAGE_VERSION_KEY, MENU_VERSION);
-      return DEFAULT_MENU_ITEMS;
-    }
-
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      return JSON.parse(stored);
-    }
-  } catch {
-    // ignore parse errors
-  }
-  // Initialize with defaults
-  saveMenuItems(DEFAULT_MENU_ITEMS);
-  localStorage.setItem(STORAGE_VERSION_KEY, MENU_VERSION);
+  // Use shared defaults so all devices see the same menu.
+  // Uploaded images stored in localStorage are device-only, so we disable that behavior.
   return DEFAULT_MENU_ITEMS;
 }
 
-export function saveMenuItems(items: MenuItem[]): void {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-  localStorage.setItem(STORAGE_VERSION_KEY, MENU_VERSION);
+export function saveMenuItems(_items: MenuItem[]): void {
+  // no-op: images/menu are static/shared
 }
 
-export function addMenuItem(item: MenuItem): void {
-  const items = loadMenuItems();
-  items.push(item);
-  saveMenuItems(items);
+
+export function addMenuItem(_item: MenuItem): void {
+  // disabled (static/shared)
 }
 
-export function deleteMenuItem(id: string): void {
-  const items = loadMenuItems().filter(item => item.id !== id);
-  saveMenuItems(items);
+export function deleteMenuItem(_id: string): void {
+  // disabled (static/shared)
 }
 
 export function resetToDefaults(): void {
-  saveMenuItems(DEFAULT_MENU_ITEMS);
+  // disabled (static/shared)
 }
+
