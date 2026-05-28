@@ -118,19 +118,20 @@ export function loadMenuItems(): MenuItem[] {
 }
 
 export function saveMenuItems(_items: MenuItem[]): void {
-  // no-op: images/menu are static/shared
+  // Intentionally no localStorage persistence so images stay shared.
+  // Admin changes are kept in React state only (per-session).
 }
 
-
 export function addMenuItem(_item: MenuItem): void {
-  // disabled (static/shared)
+  // Disabled for persistence; handled in React state only.
 }
 
 export function deleteMenuItem(_id: string): void {
-  // disabled (static/shared)
+  // Disabled for persistence; handled in React state only.
 }
 
 export function resetToDefaults(): void {
-  // disabled (static/shared)
+  // Disabled for persistence.
 }
+
 
