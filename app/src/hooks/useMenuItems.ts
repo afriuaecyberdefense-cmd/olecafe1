@@ -7,10 +7,12 @@ export function useMenuItems() {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    // Keep effects side-effect safe; avoid cascading renders.
     const data = loadMenuItems();
     setItems(data);
     setLoaded(true);
   }, []);
+
 
   useEffect(() => {
     if (loaded) {

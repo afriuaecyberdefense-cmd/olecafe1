@@ -608,10 +608,12 @@ function SidebarMenuSkeleton({
 }) {
   // Random width between 50 to 90%.
   const width = React.useMemo(() => {
-    return `${Math.floor(Math.random() * 40) + 50}%`
+    // Deterministic placeholder width to satisfy React purity rules.
+    return "70%"
   }, [])
 
   return (
+
     <div
       data-slot="sidebar-menu-skeleton"
       data-sidebar="menu-skeleton"
