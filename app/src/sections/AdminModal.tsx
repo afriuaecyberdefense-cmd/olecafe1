@@ -35,7 +35,10 @@ export default function AdminModal({
     description: '',
     price: '',
     category: 'hot-drinks' as Category,
+    imageUrl: '' as string,
   });
+
+  const [imagePreview, setImagePreview] = useState<string>('');
   const [success, setSuccess] = useState('');
 
   const handleLogin = useCallback(() => {
@@ -70,10 +73,12 @@ export default function AdminModal({
       description: formData.description.trim(),
       price: Number(formData.price),
       category: formData.category,
+      ...(formData.imageUrl ? { imageUrl: formData.imageUrl } : {}),
     };
 
     onAddItem(newItem);
-    setFormData({ name: '', description: '', price: '', category: 'hot-drinks' });
+    setFormData({ name: '', description: '', price: '', category: 'hot-drinks' as Category, imageUrl: '' as string });
+    setImagePreview('');
     setSuccess('Item added successfully!');
     setTimeout(() => setSuccess(''), 3000);
   }, [formData, onAddItem]);
@@ -292,6 +297,56 @@ export default function AdminModal({
                     />
                   </div>
 
+                  <div>
+                    <label className="block text-text-primary text-sm font-medium mb-1.5">
+                      Item Image
+                    </label>
+
+                    {imagePreview && (
+                      <div className="mb-3 flex items-center gap-3">
+                        <img
+                          src={imagePreview}
+                          alt="Preview"
+                          className="w-16 h-16 rounded-xl object-cover border border-custom bg-cream/50"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setImagePreview('');
+                            setFormData((prev) => ({ ...prev, imageUrl: '' as string }));
+                          }}
+                          className="text-xs text-burgundy-dark hover:text-burgundy font-semibold"
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    )}
+
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+
+                        if (file.size > 2 * 1024 * 1024) {
+                          setError('Image must be smaller than 2MB');
+                          return;
+                        }
+
+                        const reader = new FileReader();
+                        reader.onload = () => {
+                          const result = String(reader.result || '');
+                          setImagePreview(result);
+                          setFormData((prev) => ({ ...prev, imageUrl: result }));
+                          setError('');
+                        };
+                        reader.readAsDataURL(file);
+                      }}
+                      className="w-full h-12 px-4 rounded-xl border border-custom bg-cream/50 text-text-primary text-sm focus:outline-none focus:border-burgundy focus:ring-2 focus:ring-burgundy/10 transition-all file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-burgundy/10 file:text-burgundy"
+                    />
+                  </div>
+
                   <button
                     onClick={handleSubmit}
                     className="w-full h-12 bg-champagne text-burgundy-dark font-semibold text-sm rounded-xl hover:bg-champagne-light transition-colors active:scale-[0.97] flex items-center justify-center gap-2"
@@ -343,7 +398,16 @@ export default function AdminModal({
                                     <p className="text-sm text-text-primary truncate">
                                       {item.name}
                                     </p>
-                                    <p className="text-xs text-burgundy font-semibold">
+                                    {item.imageUrl ? (
+                                      <img
+                                        src={item.imageUrl}
+                                        alt={item.name}
+                                        className="w-10 h-10 rounded-lg object-cover border border-custom bg-cream/50 mt-2"
+                                      />
+                                    ) : (
+                                      <div className="w-10 h-10 rounded-lg border border-dashed border-custom bg-cream/40 mt-2" />
+                                    )}
+                                    <p className="text-xs text-burgundy font-semibold mt-2">
                                       AED {item.price}
                                     </p>
                                   </div>

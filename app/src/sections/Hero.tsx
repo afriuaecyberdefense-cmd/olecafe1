@@ -51,8 +51,12 @@ export default function Hero() {
           className="animate-on-scroll opacity-0 translate-y-4 transition-all duration-700 ease-out mb-6"
           style={{ transitionDelay: '0.1s' }}
         >
-          <div className="w-28 h-28 md:w-32 md:h-32 rounded-full bg-burgundy flex items-center justify-center shadow-lg animate-pulse-logo">
-            <span className="font-brand italic text-white text-4xl md:text-5xl font-bold">Olé</span>
+          <div className="w-28 h-28 md:w-32 md:h-32 rounded-full bg-burgundy flex items-center justify-center shadow-lg animate-pulse-logo overflow-hidden">
+            <img
+              src="/imgaes/olecafe logo.jpeg"
+              alt="Ole Cafe logo"
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
 

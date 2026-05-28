@@ -16,6 +16,7 @@ export interface MenuItem {
   description: string;
   price: number;
   category: Category;
+  imageUrl?: string;
 }
 
 export interface CategoryConfig {

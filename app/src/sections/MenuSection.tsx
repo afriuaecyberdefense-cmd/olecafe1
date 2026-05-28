@@ -171,6 +171,17 @@ function MenuCard({
         {categoryLabel}
       </span>
 
+      {/* Item Image */}
+      {item.imageUrl ? (
+        <img
+          src={item.imageUrl}
+          alt={item.name}
+          className="w-full h-28 rounded-xl object-cover border border-custom bg-cream/50 mb-3"
+        />
+      ) : (
+        <div className="w-full h-28 rounded-xl border border-dashed border-custom bg-cream/30 mb-3" />
+      )}
+
       {/* Item Name */}
       <h3 className="text-text-primary font-semibold text-base mb-1.5 group-hover:text-burgundy transition-colors">
         {item.name}

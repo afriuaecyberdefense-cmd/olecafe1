@@ -18,7 +18,14 @@ export default function Footer() {
       {/* Top Area */}
       <div className="max-w-4xl mx-auto px-5 pt-10 pb-6 text-center">
         {/* Brand */}
-        <h3 className="font-brand italic text-white text-2xl font-bold mb-1">Olé</h3>
+        <div className="flex items-center justify-center gap-2 mb-1">
+          <img
+            src="/imgaes/olecafe logo.jpeg"
+            alt="Ole Cafe logo"
+            className="w-8 h-8 rounded-full object-cover"
+          />
+          <h3 className="font-brand italic text-white text-2xl font-bold">Olé</h3>
+        </div>
         <p className="text-champagne text-sm mb-5">Premium Coffee & More</p>
 
         {/* Social Icons */}

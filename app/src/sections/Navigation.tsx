@@ -75,6 +75,11 @@ export default function Navigation({ onAdminClick }: NavigationProps) {
           e.preventDefault();
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}>
+          <img
+            src="/imgaes/olecafe logo.jpeg"
+            alt="Ole Cafe logo"
+            className="h-8 w-8 rounded-full object-cover"
+          />
           <span className="font-brand italic text-white text-2xl font-bold">Olé</span>
         </a>
 
