@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import type { MenuItem } from '../types/menu';
-import { loadMenuItems, saveMenuItems } from '../data/menuData';
+import { loadMenuItems } from '../data/menuData';
+
 
 export function useMenuItems() {
   const [items, setItems] = useState<MenuItem[]>([]);
@@ -15,10 +16,10 @@ export function useMenuItems() {
 
 
   useEffect(() => {
-    if (loaded) {
-      saveMenuItems(items);
-    }
+    // menu persistence disabled (static/shared)
+    // saveMenuItems(items);
   }, [items, loaded]);
+
 
   const addItem = useCallback((item: MenuItem) => {
     setItems(prev => [...prev, item]);

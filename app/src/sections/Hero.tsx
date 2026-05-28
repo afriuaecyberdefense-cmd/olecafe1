@@ -1,19 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { MessageCircle, Instagram, ChevronDown } from 'lucide-react';
 
-const HERO_LOGO_STORAGE_KEY = 'olecafe_hero_logo_v1';
+
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const [heroLogoSrc, setHeroLogoSrc] = useState<string>(() => {
-    try {
-      return localStorage.getItem(HERO_LOGO_STORAGE_KEY) || '/imgaes/olecafe%20logo.jpeg';
-    } catch {
-      return '/imgaes/olecafe%20logo.jpeg';
-    }
+    // Use static shared logo URL so it works on every device.
+    return '/imgaes/olecafe%20logo.jpeg';
   });
+
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -57,16 +55,11 @@ export default function Hero() {
 
     const reader = new FileReader();
     reader.onload = () => {
-      const result = typeof reader.result === 'string' ? reader.result : null;
-      if (!result) return;
-
-      setHeroLogoSrc(result);
-      try {
-        localStorage.setItem(HERO_LOGO_STORAGE_KEY, result);
-      } catch {
-        // ignore storage failures (private mode, quota, etc.)
-      }
+      // Do not store uploads per-device. Keep default static logo for all phones.
+      // (Admin can update static assets in /imgaes instead.)
+      setHeroLogoSrc('/imgaes/olecafe%20logo.jpeg');
     };
+
     reader.readAsDataURL(file);
   };
 
