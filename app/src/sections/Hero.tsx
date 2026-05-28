@@ -1,8 +1,19 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MessageCircle, Instagram, ChevronDown } from 'lucide-react';
+
+const HERO_LOGO_STORAGE_KEY = 'olecafe_hero_logo_v1';
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const [heroLogoSrc, setHeroLogoSrc] = useState<string>(() => {
+    try {
+      return localStorage.getItem(HERO_LOGO_STORAGE_KEY) || '/imgaes/olecafe%20logo.jpeg';
+    } catch {
+      return '/imgaes/olecafe%20logo.jpeg';
+    }
+  });
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -34,7 +45,30 @@ export default function Hero() {
     window.open('https://www.tiktok.com/@olecafe.ae', '_blank');
   };
 
+  const openLogoPicker = () => {
+    fileInputRef.current?.click();
+  };
 
+  const onLogoFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = typeof reader.result === 'string' ? reader.result : null;
+      if (!result) return;
+
+      setHeroLogoSrc(result);
+      try {
+        localStorage.setItem(HERO_LOGO_STORAGE_KEY, result);
+      } catch {
+        // ignore storage failures (private mode, quota, etc.)
+      }
+    };
+    reader.readAsDataURL(file);
+  };
 
   return (
     <section
@@ -53,16 +87,30 @@ export default function Hero() {
           className="animate-on-scroll opacity-0 translate-y-4 transition-all duration-700 ease-out mb-6"
           style={{ transitionDelay: '0.1s' }}
         >
-          <div className="w-28 h-28 md:w-32 md:h-32 rounded-full bg-burgundy flex items-center justify-center shadow-lg animate-pulse-logo overflow-hidden">
+          <button
+            type="button"
+            onClick={openLogoPicker}
+            className="w-28 h-28 md:w-32 md:h-32 rounded-full bg-burgundy flex items-center justify-center shadow-lg animate-pulse-logo overflow-hidden cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-champagne/80"
+            aria-label="Change hero logo"
+            title="Click to change the logo"
+          >
             <img
-              src="/imgaes/olecafe%20logo.jpeg"
+              src={heroLogoSrc}
               alt="Ole Cafe logo"
               loading="eager"
               decoding="async"
               draggable={false}
               className="w-full h-full object-cover"
             />
-          </div>
+          </button>
+
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={onLogoFileChange}
+          />
         </div>
 
         {/* Tagline */}
@@ -123,7 +171,10 @@ export default function Hero() {
           className="animate-on-scroll opacity-0 transition-all duration-700 ease-out"
           style={{ transitionDelay: '0.8s' }}
         >
-          <a href="#menu" className="flex flex-col items-center text-text-secondary/60 hover:text-burgundy transition-colors">
+          <a
+            href="#menu"
+            className="flex flex-col items-center text-text-secondary/60 hover:text-burgundy transition-colors"
+          >
             <span className="text-xs mb-2 tracking-wide">Explore Menu</span>
             <ChevronDown className="w-5 h-5 animate-bounce-gentle" />
           </a>
@@ -139,3 +190,4 @@ export default function Hero() {
     </section>
   );
 }
+
