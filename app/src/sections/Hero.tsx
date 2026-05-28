@@ -34,9 +34,7 @@ export default function Hero() {
     window.open('https://www.tiktok.com/@olecafe.ae', '_blank');
   };
 
-  const handleSnapchat = () => {
-    // removed (replaced by TikTok)
-  };
+
 
   return (
     <section
