@@ -17,6 +17,7 @@ interface AdminModalProps {
 
 
 export default function AdminModal({
+
   isOpen,
   onClose,
   isAuthenticated,
