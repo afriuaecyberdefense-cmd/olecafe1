@@ -12,7 +12,9 @@ interface AdminModalProps {
   items: MenuItem[];
   onAddItem: (item: MenuItem) => void;
   onDeleteItem: (id: string) => void;
+  onUpdateItemImage: (id: string, imageUrl?: string) => void;
 }
+
 
 export default function AdminModal({
   isOpen,
@@ -23,7 +25,9 @@ export default function AdminModal({
   items,
   onAddItem,
   onDeleteItem,
+  onUpdateItemImage,
 }: AdminModalProps) {
+
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState<'add' | 'manage'>('add');
@@ -107,6 +111,36 @@ export default function AdminModal({
       onDeleteItem(id);
     }
   }, [onDeleteItem]);
+
+  const handleUpdateItemImage = useCallback(
+    (id: string, file: File | null) => {
+      if (!file) return;
+      if (!file.type.startsWith('image/')) {
+        setError('Please upload an image file');
+        return;
+      }
+      if (file.size > 2 * 1024 * 1024) {
+        setError('Image must be smaller than 2MB');
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        const result = typeof reader.result === 'string' ? reader.result : '';
+        if (!result) return;
+        setError('');
+        onUpdateItemImage(id, result);
+        setSuccess('Item image updated!');
+        setTimeout(() => setSuccess(''), 3000);
+      };
+      reader.onerror = () => {
+        setError('Failed to read image');
+      };
+      reader.readAsDataURL(file);
+    },
+    [onUpdateItemImage]
+  );
+
 
   const toggleCategory = (categoryId: string) => {
     setCollapsedCategories((prev) => ({
@@ -426,14 +460,46 @@ export default function AdminModal({
                                       AED {item.price}
                                     </p>
                                   </div>
-                                  <button
-                                    onClick={() => handleDelete(item.id)}
-                                    className="w-8 h-8 rounded-lg flex items-center justify-center text-text-secondary hover:text-red-600 hover:bg-red-50 transition-all active:scale-95 flex-shrink-0"
-                                    title="Delete item"
-                                  >
-                                    <Trash2 className="w-4 h-4" />
-                                  </button>
+
+                                  <div className="flex items-center gap-2 flex-shrink-0">
+                                    <label
+                                      className="w-8 h-8 rounded-lg flex items-center justify-center text-text-secondary bg-white/70 border border-custom hover:bg-cream transition-all active:scale-95 cursor-pointer"
+                                      title={item.imageUrl ? 'Change image' : 'Add image'}
+                                    >
+                                      <input
+                                        type="file"
+                                        accept="image/*"
+                                        className="hidden"
+                                        onChange={(e) => {
+                                          const file = e.target.files?.[0] || null;
+                                          handleUpdateItemImage(item.id, file);
+                                          // allow re-uploading the same file
+                                          e.currentTarget.value = '';
+                                        }}
+                                      />
+                                      <Plus className="w-4 h-4" />
+                                    </label>
+
+                                    {item.imageUrl && (
+                                      <button
+                                        onClick={() => onUpdateItemImage(item.id, undefined)}
+                                        className="w-8 h-8 rounded-lg flex items-center justify-center text-text-secondary hover:text-red-600 hover:bg-red-50 transition-all active:scale-95"
+                                        title="Remove image"
+                                      >
+                                        <Trash2 className="w-4 h-4" />
+                                      </button>
+                                    )}
+
+                                    <button
+                                      onClick={() => handleDelete(item.id)}
+                                      className="w-8 h-8 rounded-lg flex items-center justify-center text-text-secondary hover:text-red-600 hover:bg-red-50 transition-all active:scale-95"
+                                      title="Delete item"
+                                    >
+                                      <Trash2 className="w-4 h-4" />
+                                    </button>
+                                  </div>
                                 </div>
+
                               ))}
                             </div>
                           )}

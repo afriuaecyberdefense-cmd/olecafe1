@@ -22,6 +22,9 @@ export default function Footer() {
           <img
             src="/imgaes/olecafe logo.jpeg"
             alt="Ole Cafe logo"
+            loading="eager"
+            decoding="async"
+            draggable={false}
             className="w-8 h-8 rounded-full object-cover"
           />
           <h3 className="font-brand italic text-white text-2xl font-bold">Olé</h3>

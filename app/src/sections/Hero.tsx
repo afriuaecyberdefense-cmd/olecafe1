@@ -57,6 +57,9 @@ export default function Hero() {
             <img
               src="/imgaes/olecafe logo.jpeg"
               alt="Ole Cafe logo"
+              loading="eager"
+              decoding="async"
+              draggable={false}
               className="w-full h-full object-cover"
             />
           </div>

@@ -12,7 +12,7 @@ import { useAdmin } from './hooks/useAdmin';
 
 export default function App() {
   const [adminOpen, setAdminOpen] = useState(false);
-  const { items, addItem, deleteItem, loaded } = useMenuItems();
+  const { items, addItem, deleteItem, updateItemImage, loaded } = useMenuItems();
   const { isAuthenticated, login, logout } = useAdmin();
 
   if (!loaded) {
@@ -58,7 +58,9 @@ export default function App() {
         items={items}
         onAddItem={addItem}
         onDeleteItem={deleteItem}
+        onUpdateItemImage={updateItemImage}
       />
     </div>
   );
 }
+

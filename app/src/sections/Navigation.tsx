@@ -78,6 +78,9 @@ export default function Navigation({ onAdminClick }: NavigationProps) {
           <img
             src="/imgaes/olecafe logo.jpeg"
             alt="Ole Cafe logo"
+            loading="eager"
+            decoding="async"
+            draggable={false}
             className="h-8 w-8 rounded-full object-cover"
           />
           <span className="font-brand italic text-white text-2xl font-bold">Olé</span>
@@ -128,11 +131,13 @@ export default function Navigation({ onAdminClick }: NavigationProps) {
       </nav>
 
       {/* Safe area padding for mobile */}
-      <style>{`
+      <style>
+        {`
         .pb-safe {
           padding-bottom: env(safe-area-inset-bottom, 0px);
         }
-      `}</style>
+      `}
+      </style>
     </>
   );
 }

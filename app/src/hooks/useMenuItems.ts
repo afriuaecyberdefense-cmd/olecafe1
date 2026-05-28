@@ -28,9 +28,24 @@ export function useMenuItems() {
     setItems(prev => prev.filter(item => item.id !== id));
   }, []);
 
+  const updateItemImage = useCallback((id: string, imageUrl?: string) => {
+    setItems(prev =>
+      prev.map(item => {
+        if (item.id !== id) return item;
+        const next: MenuItem = {
+          ...item,
+          ...(imageUrl ? { imageUrl } : { imageUrl: undefined }),
+        };
+        return next;
+      })
+    );
+  }, []);
+
+
   const resetItems = useCallback((newItems: MenuItem[]) => {
     setItems(newItems);
   }, []);
 
-  return { items, addItem, deleteItem, resetItems, loaded };
+  return { items, addItem, deleteItem, updateItemImage, resetItems, loaded };
 }
+
